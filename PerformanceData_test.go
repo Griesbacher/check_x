@@ -41,6 +41,15 @@ var perfdataToString = []struct {
 		crit, _ := NewThreshold("@10:20")
 		return NewPerformanceData("a", 6).Warn(warn).Crit(crit).Min(0).Max(100).Unit("C")
 	}, "'a'=6C;10:;@10:20;0;100"},
+	{func() PerformanceData {
+		warn, _ := NewThreshold("")
+		crit, _ := NewThreshold("@10:20")
+		return NewPerformanceData("a", 6).Warn(warn).Crit(crit).Min(0).Max(100).Unit("C")
+	}, "'a'=6C;;@10:20;0;100"},
+	{func() PerformanceData {
+		crit, _ := NewThreshold("@10:20")
+		return NewPerformanceData("a", 6).Warn(nil).Crit(crit).Min(0).Max(100).Unit("C")
+	}, "'a'=6C;;@10:20;0;100"},
 }
 
 func TestPerformanceData_toString(t *testing.T) {

@@ -18,12 +18,12 @@ type Threshold struct {
 }
 
 var (
-	regexDigit              = `(-?\d+(\.\d+)?)`
-	regexOutsideZeroToX     = regexp.MustCompile(fmt.Sprintf(`^%s$`, regexDigit))
-	regexOutsideXToInf      = regexp.MustCompile(fmt.Sprintf(`^%s:$`, regexDigit))
+	regexDigit = `(-?\d+(\.\d+)?)`
+	regexOutsideZeroToX = regexp.MustCompile(fmt.Sprintf(`^%s$`, regexDigit))
+	regexOutsideXToInf = regexp.MustCompile(fmt.Sprintf(`^%s:$`, regexDigit))
 	regexOutsideMinusInfToX = regexp.MustCompile(fmt.Sprintf(`^~:%s$`, regexDigit))
-	regexInsideOutsideXToY  = regexp.MustCompile(fmt.Sprintf(`^(@?)%s:%s$`, regexDigit, regexDigit))
-	minFloat64              = float64(math.MinInt64)
+	regexInsideOutsideXToY = regexp.MustCompile(fmt.Sprintf(`^(@?)%s:%s$`, regexDigit, regexDigit))
+	minFloat64 = float64(math.MinInt64)
 	//FirstBiggerThenSecondError this error is thrown when the first number is bigger then the second
 	FirstBiggerThenSecondError = errors.New("First argument is bigger then second")
 )
@@ -36,6 +36,9 @@ func (t Threshold) String() string {
 //NewThreshold constructs a new Threshold from string, returns an Threshold if possible else nil and an error
 func NewThreshold(def string) (*Threshold, error) {
 	def = strings.TrimSpace(def)
+	if def == "" {
+		return nil, nil
+	}
 	if outsideZeroToX := regexOutsideZeroToX.FindString(def); outsideZeroToX != "" {
 		if x, err := strconv.ParseFloat(outsideZeroToX, 64); err == nil {
 			return &Threshold{input: def, lower: 0, upper: x, outside: true}, nil
