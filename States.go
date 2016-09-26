@@ -1,8 +1,8 @@
 package check_x
 
 import (
-	"sort"
 	"errors"
+	"sort"
 )
 
 //State represents an Nagioskind returncode
@@ -39,7 +39,7 @@ func (s States) Len() int {
 
 //Less for Sort interface
 func (s States) Less(i, j int) bool {
-	return s[i].code < s[j].code;
+	return s[i].code < s[j].code
 }
 
 //Swap for Sort interface
@@ -47,9 +47,9 @@ func (s States) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 
-func (s States) getSorted() (error) {
+func (s States) getSorted() error {
 	if len(s) == 0 {
-		return  EmptyStatesError
+		return EmptyStatesError
 	}
 	if !sort.IsSorted(s) {
 		sort.Sort(s)
@@ -65,7 +65,7 @@ func (s States) GetBest() (*State, error) {
 }
 func (s States) GetWorst() (*State, error) {
 	if err := s.getSorted(); err == nil {
-		return &s[len(s) - 1], nil
+		return &s[len(s)-1], nil
 	} else {
 		return nil, err
 	}

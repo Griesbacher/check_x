@@ -35,9 +35,8 @@ func TestEvaluator_Evaluate(t *testing.T) {
 			}
 		}
 
-		if state := (Evaluator{Warning:warn, Critical:crit}.Evaluate(data.value)); state != data.state {
+		if state := (Evaluator{Warning: warn, Critical: crit}.Evaluate(data.value)); state != data.state {
 			t.Errorf("%d - Got state: %s - expected: %s", i, state, data.state)
 		}
 	}
 }
-

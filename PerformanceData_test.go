@@ -1,8 +1,8 @@
 package check_x
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 )
 
 var perfdataToString = []struct {
@@ -50,7 +50,7 @@ func TestPerformanceData_toString(t *testing.T) {
 		if resultString != data.expected {
 			t.Errorf("%d - Expected: %s, got: %s", i, data.expected, resultString)
 		}
-		if ! reflect.DeepEqual(p[i], result) {
+		if !reflect.DeepEqual(p[i], result) {
 			t.Errorf("%d - Expected: %s, got: %s", i, p[i], result)
 		}
 	}

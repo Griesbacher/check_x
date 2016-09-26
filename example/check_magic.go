@@ -26,8 +26,8 @@ func main() {
 	measuredValue2 := 5.0
 
 	//evaluate your magic
-	status1 := check_x.Evaluator{Warning:warn, Critical:warn}.Evaluate(measuredValue1)
-	status2 := check_x.Evaluator{Warning:warn, Critical:warn}.Evaluate(measuredValue2)
+	status1 := check_x.Evaluator{Warning: warn, Critical: warn}.Evaluate(measuredValue1)
+	status2 := check_x.Evaluator{Warning: warn, Critical: warn}.Evaluate(measuredValue2)
 
 	//see what went wrong
 	worstState, err := check_x.States{status1, status2}.GetWorst()

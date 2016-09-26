@@ -1,8 +1,8 @@
 package check_x
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 )
 
 var stateToString = []struct {
@@ -39,7 +39,7 @@ func TestStates_GetWorst(t *testing.T) {
 	for i, data := range worstState {
 		if worst, err := data.input.GetWorst(); err != data.err {
 			t.Errorf("%d - Got: %s - expected: %s", i, err, data.err)
-		} else if ((worst == nil) != (data.result == nil)) {
+		} else if (worst == nil) != (data.result == nil) {
 			t.Errorf("%d - Got: %s - expected: %s", i, worst, data.result)
 		} else if worst != nil && !reflect.DeepEqual(*worst, *data.result) {
 			t.Errorf("%d - Got: %s - expected: %s", i, worst, data.result)
@@ -63,7 +63,7 @@ func TestStates_GetBest(t *testing.T) {
 	for i, data := range bestState {
 		if worst, err := data.input.GetBest(); err != data.err {
 			t.Errorf("%d - Got: %s - expected: %s", i, err, data.err)
-		} else if ((worst == nil) != (data.result == nil)) {
+		} else if (worst == nil) != (data.result == nil) {
 			t.Errorf("%d - Got: %s - expected: %s", i, worst, data.result)
 		} else if worst != nil && !reflect.DeepEqual(*worst, *data.result) {
 			t.Errorf("%d - Got: %s - expected: %s", i, worst, data.result)

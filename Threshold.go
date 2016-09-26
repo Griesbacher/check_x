@@ -18,12 +18,12 @@ type Threshold struct {
 }
 
 var (
-	regexDigit = `(-?\d+(\.\d+)?)`
-	regexOutsideZeroToX = regexp.MustCompile(fmt.Sprintf(`^%s$`, regexDigit))
-	regexOutsideXToInf = regexp.MustCompile(fmt.Sprintf(`^%s:$`, regexDigit))
+	regexDigit              = `(-?\d+(\.\d+)?)`
+	regexOutsideZeroToX     = regexp.MustCompile(fmt.Sprintf(`^%s$`, regexDigit))
+	regexOutsideXToInf      = regexp.MustCompile(fmt.Sprintf(`^%s:$`, regexDigit))
 	regexOutsideMinusInfToX = regexp.MustCompile(fmt.Sprintf(`^~:%s$`, regexDigit))
-	regexInsideOutsideXToY = regexp.MustCompile(fmt.Sprintf(`^(@?)%s:%s$`, regexDigit, regexDigit))
-	minFloat64 = float64(math.MinInt64)
+	regexInsideOutsideXToY  = regexp.MustCompile(fmt.Sprintf(`^(@?)%s:%s$`, regexDigit, regexDigit))
+	minFloat64              = float64(math.MinInt64)
 	//FirstBiggerThenSecondError this error is thrown when the first number is bigger then the second
 	FirstBiggerThenSecondError = errors.New("First argument is bigger then second")
 )
@@ -53,7 +53,7 @@ func NewThreshold(def string) (*Threshold, error) {
 	}
 	if outsideXToY := regexInsideOutsideXToY.FindAllStringSubmatch(def, -1); len(outsideXToY) == 1 && len(outsideXToY[0]) == 6 {
 		if x, err := strconv.ParseFloat(outsideXToY[0][2], 64); err == nil {
-			if y, err := strconv.ParseFloat(outsideXToY[0][4], 64); err == nil  {
+			if y, err := strconv.ParseFloat(outsideXToY[0][4], 64); err == nil {
 				if x > y {
 					return nil, FirstBiggerThenSecondError
 				}
@@ -65,7 +65,7 @@ func NewThreshold(def string) (*Threshold, error) {
 			}
 		}
 	}
-	return nil, errors.New("This syntax is not supported")
+	return nil, fmt.Errorf("This threshold syntax is not supported: %s", def)
 }
 
 //IsValueOK tests if the given value fulfills the the Thresholds
