@@ -1,17 +1,21 @@
 package check_x
 
 import (
-	"os"
 	"fmt"
+	"os"
 )
+
+//ErrorExit quits with unknown and the error message
+func ErrorExit(err error) {
+	Exit(Unknown, err.Error())
+}
 
 //Exit returns with the given returncode and message and performancedata
 func Exit(state State, msg string) {
-	fmt.Printf("%s - %s|%s\n", state.name, msg, PrintPerformanceData())
-	os.Exit(state.code)
-}
-//ExitWithoutPerfdata returns with the given returncode and message
-func ExitWithoutPerfdata(state State, msg string) {
-	fmt.Printf("%s - %s\n", state.name, msg)
+	if perf := PrintPerformanceData(); perf == "" {
+		fmt.Printf("%s - %s\n", state.name, msg)
+	} else {
+		fmt.Printf("%s - %s|%s\n", state.name, msg, perf)
+	}
 	os.Exit(state.code)
 }
