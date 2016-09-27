@@ -30,7 +30,11 @@ var (
 
 //String prints the Threshold
 func (t Threshold) String() string {
-	return fmt.Sprintf("%f : %f , outside: %t", t.lower, t.upper, t.outside)
+	return fmt.Sprintf("%s : %s , outside: %t",
+		strconv.FormatFloat(t.lower, 'f', -1, 64),
+		strconv.FormatFloat(t.upper, 'f', -1, 64),
+		t.outside,
+	)
 }
 
 //NewThreshold constructs a new Threshold from string, returns an Threshold if possible else nil and an error

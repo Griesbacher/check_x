@@ -8,11 +8,11 @@ import (
 )
 
 var toString = map[Threshold]string{
-	Threshold{lower: 1.2, upper: 3.4, outside: true}:    "1.200000 : 3.400000 , outside: true",
-	Threshold{lower: 1, upper: 3.4, outside: true}:      "1.000000 : 3.400000 , outside: true",
-	Threshold{lower: 1.2, upper: 3, outside: true}:      "1.200000 : 3.000000 , outside: true",
-	Threshold{lower: 1.2, upper: 3.4, outside: false}:   "1.200000 : 3.400000 , outside: false",
-	Threshold{lower: -1.2, upper: -3.4, outside: false}: "-1.200000 : -3.400000 , outside: false",
+	Threshold{lower: 1.2, upper: 3.4, outside: true}:    "1.2 : 3.4 , outside: true",
+	Threshold{lower: 1, upper: 3.4, outside: true}:      "1 : 3.4 , outside: true",
+	Threshold{lower: 1.2, upper: 3, outside: true}:      "1.2 : 3 , outside: true",
+	Threshold{lower: 1.2, upper: 3.4, outside: false}:   "1.2 : 3.4 , outside: false",
+	Threshold{lower: -1.2, upper: -3.4, outside: false}: "-1.2 : -3.4 , outside: false",
 }
 
 func TestThreshold_String(t *testing.T) {
