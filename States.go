@@ -30,7 +30,8 @@ var (
 //States is a list of state
 type States []State
 
-var EmptyStatesError = errors.New("The given States do not contain an State")
+//ErrEmptyStates will be thrown if no State was added to the States array
+var ErrEmptyStates = errors.New("The given States do not contain a State")
 
 //Len for Sort interface
 func (s States) Len() int {
@@ -49,24 +50,26 @@ func (s States) Swap(i, j int) {
 
 func (s States) getSorted() error {
 	if len(s) == 0 {
-		return EmptyStatesError
+		return ErrEmptyStates
 	}
 	if !sort.IsSorted(s) {
 		sort.Sort(s)
 	}
 	return nil
 }
+
+//GetBest returns the best State from the array
 func (s States) GetBest() (*State, error) {
-	if err := s.getSorted(); err == nil {
-		return &s[0], nil
-	} else {
+	if err := s.getSorted(); err != nil {
 		return nil, err
 	}
+	return &s[0], nil
 }
+
+//GetWorst returns the worst State from the array
 func (s States) GetWorst() (*State, error) {
-	if err := s.getSorted(); err == nil {
-		return &s[len(s)-1], nil
-	} else {
+	if err := s.getSorted(); err != nil {
 		return nil, err
 	}
+	return &s[len(s) - 1], nil
 }

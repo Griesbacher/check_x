@@ -47,8 +47,8 @@ var stringToThreshold = []struct {
 	{" ~:3", &Threshold{input: "~:3", lower: minFloat64, upper: 3, outside: true}, nil},
 	{"~:3,1", nil, errors.New("")},
 
-	{"-1.2:-3.4", nil, FirstBiggerThenSecondError},
-	{"3:2", nil, FirstBiggerThenSecondError},
+	{"-1.2:-3.4", nil, ErrFirstBiggerThenSecond},
+	{"3:2", nil, ErrFirstBiggerThenSecond},
 	{"1.2:3.4", &Threshold{input: "1.2:3.4", lower: 1.2, upper: 3.4, outside: true}, nil},
 	{"-1.2:3.4", &Threshold{input: "-1.2:3.4", lower: -1.2, upper: 3.4, outside: true}, nil},
 	{"-3.4:-1.2", &Threshold{input: "-3.4:-1.2", lower: -3.4, upper: -1.2, outside: true}, nil},
@@ -57,8 +57,8 @@ var stringToThreshold = []struct {
 	{"1:3.4", &Threshold{input: "1:3.4", lower: 1, upper: 3.4, outside: true}, nil},
 	{"1,2:3,4", nil, errors.New("")},
 
-	{"@-1.2:-3.4", nil, FirstBiggerThenSecondError},
-	{" @3:2", nil, FirstBiggerThenSecondError},
+	{"@-1.2:-3.4", nil, ErrFirstBiggerThenSecond},
+	{" @3:2", nil, ErrFirstBiggerThenSecond},
 	{"@1.2:3.4", &Threshold{input: "@1.2:3.4", lower: 1.2, upper: 3.4, outside: false}, nil},
 	{"@-1.2:3.4 ", &Threshold{input: "@-1.2:3.4", lower: -1.2, upper: 3.4, outside: false}, nil},
 	{"@-3.4:-1.2", &Threshold{input: "@-3.4:-1.2", lower: -3.4, upper: -1.2, outside: false}, nil},
@@ -70,12 +70,12 @@ var stringToThreshold = []struct {
 
 func TestNewThreshold(t *testing.T) {
 	for i, data := range stringToThreshold {
-		t_got, err := NewThreshold(data.input)
+		tGot, err := NewThreshold(data.input)
 		if (err == nil) != (data.err == nil) {
 			t.Error(i, err, data.err)
 		}
-		if (t_got != nil && data.threshold != nil) && *t_got != *data.threshold {
-			t.Errorf("%d - Got: %s expected: %s", i, *t_got, *data.threshold)
+		if (tGot != nil && data.threshold != nil) && *tGot != *data.threshold {
+			t.Errorf("%d - Got: %s expected: %s", i, *tGot, *data.threshold)
 		}
 	}
 }

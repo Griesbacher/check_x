@@ -6,47 +6,47 @@ import (
 )
 
 var perfdataToString = []struct {
-	f        func() PerformanceData
+	f        func() performanceData
 	expected string
 }{
-	{func() PerformanceData {
+	{func() performanceData {
 		return *NewPerformanceDataString("a", "1")
 	}, "'a'=1;;;;"},
-	{func() PerformanceData {
+	{func() performanceData {
 		warn, _ := NewThreshold("10:")
 		return NewPerformanceDataString("a", "2").Warn(warn)
 	}, "'a'=2;10:;;;"},
-	{func() PerformanceData {
+	{func() performanceData {
 		warn, _ := NewThreshold("10:")
 		crit, _ := NewThreshold("@10:20")
 		return NewPerformanceDataString("a", "3").Warn(warn).Crit(crit)
 	}, "'a'=3;10:;@10:20;;"},
-	{func() PerformanceData {
+	{func() performanceData {
 		warn, _ := NewThreshold("10:")
 		crit, _ := NewThreshold("@10:20")
 		return NewPerformanceDataString("a", "3").Warn(warn).Crit(crit).Min(0)
 	}, "'a'=3;10:;@10:20;0;"},
-	{func() PerformanceData {
+	{func() performanceData {
 		warn, _ := NewThreshold("10:")
 		crit, _ := NewThreshold("@10:20")
 		return NewPerformanceDataString("a", "4").Warn(warn).Crit(crit).Min(0).Max(100)
 	}, "'a'=4;10:;@10:20;0;100"},
-	{func() PerformanceData {
+	{func() performanceData {
 		warn, _ := NewThreshold("10:")
 		crit, _ := NewThreshold("@10:20")
 		return NewPerformanceDataString("a", "5").Warn(warn).Crit(crit).Min(0).Max(100).Unit("C")
 	}, "'a'=5C;10:;@10:20;0;100"},
-	{func() PerformanceData {
+	{func() performanceData {
 		warn, _ := NewThreshold("10:")
 		crit, _ := NewThreshold("@10:20")
 		return NewPerformanceData("a", 6).Warn(warn).Crit(crit).Min(0).Max(100).Unit("C")
 	}, "'a'=6C;10:;@10:20;0;100"},
-	{func() PerformanceData {
+	{func() performanceData {
 		warn, _ := NewThreshold("")
 		crit, _ := NewThreshold("@10:20")
 		return NewPerformanceData("a", 6).Warn(warn).Crit(crit).Min(0).Max(100).Unit("C")
 	}, "'a'=6C;;@10:20;0;100"},
-	{func() PerformanceData {
+	{func() performanceData {
 		crit, _ := NewThreshold("@10:20")
 		return NewPerformanceData("a", 6).Warn(nil).Crit(crit).Min(0).Max(100).Unit("C")
 	}, "'a'=6C;;@10:20;0;100"},
@@ -66,7 +66,7 @@ func TestPerformanceData_toString(t *testing.T) {
 }
 
 func TestPrintPerformanceData(t *testing.T) {
-	p = []PerformanceData{}
+	p = []performanceData{}
 	NewPerformanceDataString("a", "1")
 	NewPerformanceDataString("b", "2")
 	expected := "'a'=1;;;;" + " " + "'b'=2;;;; "

@@ -28,7 +28,7 @@ var worstState = []struct {
 	result *State
 	err    error
 }{
-	{States{}, nil, EmptyStatesError},
+	{States{}, nil, ErrEmptyStates},
 	{States{OK}, &OK, nil},
 	{States{OK, Warning}, &Warning, nil},
 	{States{Critical, OK, Warning}, &Critical, nil},
@@ -52,7 +52,7 @@ var bestState = []struct {
 	result *State
 	err    error
 }{
-	{States{}, nil, EmptyStatesError},
+	{States{}, nil, ErrEmptyStates},
 	{States{OK}, &OK, nil},
 	{States{OK, Warning}, &OK, nil},
 	{States{OK, Critical, Warning}, &OK, nil},

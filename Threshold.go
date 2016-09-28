@@ -24,8 +24,8 @@ var (
 	regexOutsideMinusInfToX = regexp.MustCompile(fmt.Sprintf(`^~:%s$`, regexDigit))
 	regexInsideOutsideXToY = regexp.MustCompile(fmt.Sprintf(`^(@?)%s:%s$`, regexDigit, regexDigit))
 	minFloat64 = float64(math.MinInt64)
-	//FirstBiggerThenSecondError this error is thrown when the first number is bigger then the second
-	FirstBiggerThenSecondError = errors.New("First argument is bigger then second")
+	//ErrFirstBiggerThenSecond this error is thrown when the first number is bigger then the second
+	ErrFirstBiggerThenSecond = errors.New("First argument is bigger then second")
 )
 
 //String prints the Threshold
@@ -62,13 +62,12 @@ func NewThreshold(def string) (*Threshold, error) {
 		if x, err := strconv.ParseFloat(outsideXToY[0][2], 64); err == nil {
 			if y, err := strconv.ParseFloat(outsideXToY[0][4], 64); err == nil {
 				if x > y {
-					return nil, FirstBiggerThenSecondError
+					return nil, ErrFirstBiggerThenSecond
 				}
 				if outsideXToY[0][1] == "@" {
 					return &Threshold{input: def, lower: x, upper: y, outside: false}, nil
-				} else {
-					return &Threshold{input: def, lower: x, upper: y, outside: true}, nil
 				}
+				return &Threshold{input: def, lower: x, upper: y, outside: true}, nil
 			}
 		}
 	}
