@@ -71,5 +71,5 @@ func (s States) GetWorst() (*State, error) {
 	if err := s.getSorted(); err != nil {
 		return nil, err
 	}
-	return &s[len(s) - 1], nil
+	return &s[len(s)-1], nil
 }
