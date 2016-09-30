@@ -17,9 +17,9 @@ func main() {
 
 	//Create a critical threshold
 	crit, err := check_x.NewThreshold("@20:30")
-	if err != nil {
-		panic(err)
-	}
+
+	//If you don't want to handle the error, you could just pass it to the user
+	check_x.ExitOnError(err)
 
 	//do your magic
 	measuredValue1 := 25.0
@@ -31,9 +31,7 @@ func main() {
 
 	//see what went wrong
 	worstState, err := check_x.States{status1, status2}.GetWorst()
-	if err != nil {
-		panic(err)
-	}
+	check_x.ExitOnError(err)
 
 	//set some performancedata
 	check_x.NewPerformanceData("foo", measuredValue1).Unit("B").Warn(warn).Crit(crit).Min(0).Max(100)

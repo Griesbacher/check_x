@@ -5,9 +5,11 @@ import (
 	"os"
 )
 
-//ErrorExit quits with unknown and the error message
-func ErrorExit(err error) {
-	Exit(Unknown, err.Error())
+//ExitOnError quits with unknown and the error message if an error was passed
+func ExitOnError(err error) {
+	if err != nil {
+		Exit(Unknown, err.Error())
+	}
 }
 
 //Exit returns with the given returncode and message and optional performancedata
