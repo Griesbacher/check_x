@@ -11,14 +11,11 @@ func main() {
 
 	//Create a warning threshold
 	warn, err := check_x.NewThreshold("10:")
-	if err != nil {
-		panic(err)
-	}
+	//If you don't want to handle the error, you could just pass it to the user
+	check_x.ExitOnError(err)
 
 	//Create a critical threshold
 	crit, err := check_x.NewThreshold("@20:30")
-
-	//If you don't want to handle the error, you could just pass it to the user
 	check_x.ExitOnError(err)
 
 	//do your magic
