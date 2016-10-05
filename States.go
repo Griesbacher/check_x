@@ -12,6 +12,7 @@ type State struct {
 	code int
 }
 
+//StateFromInt creates an known state if code is 0-3, else a new State will be returned
 func StateFromInt(code int) State {
 	switch code {
 	case 0:
@@ -27,6 +28,7 @@ func StateFromInt(code int) State {
 	}
 }
 
+//StateFromString creates an known state if string is "ok|warning|critical|unknown", else a new State will be returned
 func StateFromString(name string) State {
 	lowerName := strings.ToLower(name)
 	switch lowerName {
