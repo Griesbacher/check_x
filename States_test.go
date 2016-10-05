@@ -23,6 +23,44 @@ func TestState_String(t *testing.T) {
 	}
 }
 
+var intToState = []struct {
+	input  int
+	result State
+}{
+	{0, OK},
+	{1, Warning},
+	{2, Critical},
+	{3, Unknown},
+	{4, State{code: 4}},
+}
+
+func TestStateFromInt(t *testing.T) {
+	for i, data := range intToState {
+		if StateFromInt(data.input) != data.result {
+			t.Errorf("%d - Got: %s - expected: %s", i, data.input, data.result)
+		}
+	}
+}
+
+var stringToState = []struct {
+	input  string
+	result State
+}{
+	{"OK", OK},
+	{"Warning", Warning},
+	{"Critical", Critical},
+	{"Unknown", Unknown},
+	{"FOO", State{name: "FOO"}},
+}
+
+func TestStateFromString(t *testing.T) {
+	for i, data := range stringToState {
+		if StateFromString(data.input) != data.result {
+			t.Errorf("%d - Got: %s - expected: %s", i, data.input, data.result)
+		}
+	}
+}
+
 var worstState = []struct {
 	input  States
 	result *State

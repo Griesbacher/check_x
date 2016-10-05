@@ -3,12 +3,44 @@ package check_x
 import (
 	"errors"
 	"sort"
+	"strings"
 )
 
-//State represents an Nagioskind returncode
+//State represents an nagioskind returncode
 type State struct {
 	name string
 	code int
+}
+
+func StateFromInt(code int) State {
+	switch code {
+	case 0:
+		return OK
+	case 1:
+		return Warning
+	case 2:
+		return Critical
+	case 3:
+		return Unknown
+	default:
+		return State{code: code}
+	}
+}
+
+func StateFromString(name string) State {
+	lowerName := strings.ToLower(name)
+	switch lowerName {
+	case "ok":
+		return OK
+	case "warning":
+		return Warning
+	case "critical":
+		return Critical
+	case "unknown":
+		return Unknown
+	default:
+		return State{name: name}
+	}
 }
 
 //String prints the name of the state
